@@ -11,13 +11,12 @@ def print_intro():
 
 def print_word(word):
     print("".join(word))
-
-def main():
+    
+def play_game():
     lives = 8
     word = choose_word()
     used_letters = []
     guessed = ["-"] * len(word)
-    print_intro()
     while lives > 0:
         input_valid = False
         print_word(guessed)
@@ -41,7 +40,7 @@ def main():
             if "-" not in guessed:
                 print("You guessed the word {}!".format(word))
                 print("You survived!")
-                return
+                return True
         
         elif letter in guessed:
             print("No improvements. \n")
@@ -50,6 +49,35 @@ def main():
             lives -= 1
             print("That letter doesn't appear in the word \n")
     print("You lost!")
+    return False
+    
+def print_results(win, loss):
+    print("You won: {} times.\nYou lost: {} times.".format(win, loss))
+    
+def print_menu():
+    wins = 0
+    losses = 0
+    while True:
+        choice = input("Type \"play\" to play the game, \"results\" to show the scoreboard, and \"exit\" to quit:")
+        if choice == "play":
+            if play_game():
+                wins += 1
+            else:
+                losses += 1
+        elif choice == "exit":
+            return False
+        elif choice == "results":
+            print_results(wins, losses)
+        else:
+            print("Invalid choice. Please, try again.")
+
+def main():
+    print_intro()
+    while True:
+        if not print_menu():
+            return
+    
+
 
 if __name__ == "__main__":
     main()
