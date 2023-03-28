@@ -1,3 +1,4 @@
+# python3
 import random
 
 word_tuple = ("python", "java", "swift", "javascript")
